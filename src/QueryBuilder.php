@@ -234,10 +234,10 @@ class QueryBuilder
         if (!is_null($this->size)) {
             $params['size'] = $this->size;
         }
-        if (!is_null($this->source)) {
+        if (count($this->source) > 0) {
             $params['body']['_source'] = $this->source;
         }
-        if (!is_null($this->sort)) {
+        if (count($this->sort) > 0) {
             $params['body']['sort'] = $this->sort;
         }
 
