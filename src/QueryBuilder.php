@@ -78,11 +78,16 @@ class QueryBuilder
         return $this;
     }
 
-    public function sort($field, $direction)
+    public function sort($field, $direction = 'asc')
     {
         $this->sort[] = [$field => $direction];
 
         return $this;
+    }
+
+    public function sortByDesc($field)
+    {
+        return $this->sort($field, 'desc');
     }
 
     public function bool()
@@ -99,25 +104,40 @@ class QueryBuilder
         return $this;
     }
 
-    public function filterRange($field, $operator, $value)
+    public function filterByRule($rule_name, $rule)
     {
-        $this->query['bool']['filter'][]['range'][$field][$operator] = $value;
+        $this->query['bool']['filter'][][$rule_name] = $rule;
 
         return $this;
+    }
+
+    public function filterRange($field, $operator, $value)
+    {
+        return $this->filterByRule('range', [
+            $field => [$operator => $value]
+        ]);
     }
 
     public function filterTerm($field, $value)
     {
-        $this->query['bool']['filter'][]['term'][$field] = $value;
-
-        return $this;
+        return $this->filterByRule('term', [
+            $field => $value
+        ]);
     }
 
     public function filterTerms($field, $values)
     {
-        $this->query['bool']['filter'][]['terms'][$field] = $values;
+        return $this->filterByRule('terms', [
+            $field => $values
+        ]);
+    }
 
-        return $this;
+    public function filterGeoDistance($distance, $location)
+    {
+        return $this->filterByRule('geo_distance', [
+            'distance' => $distance,
+            'location' => $location
+        ]);
     }
 
     public function must()
