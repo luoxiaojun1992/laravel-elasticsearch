@@ -136,7 +136,7 @@ class QueryBuilder
     {
         return $this->filterByRule('geo_distance', [
             'distance' => $distance,
-            'location' => $location
+            'pin.location' => $location
         ]);
     }
 
