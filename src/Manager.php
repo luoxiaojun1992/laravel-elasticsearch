@@ -3,6 +3,7 @@
 namespace Lxj\Laravel\Elasticsearch;
 
 use Elasticsearch\Client;
+use Elasticsearch\ClientBuilder;
 
 /**
  * Class Manager
@@ -48,7 +49,7 @@ class Manager
 
         $connections_config = $this->config['connections'];
         if (isset($connections_config[$connection_name])) {
-            return $this->connections[$connection_name] = new Client($connections_config[$connection_name]);
+            return $this->connections[$connection_name] = ClientBuilder::fromConfig($connections_config[$connection_name]);
         }
 
         return null;

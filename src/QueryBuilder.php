@@ -31,6 +31,8 @@ class QueryBuilder
 
     private $query = [];
 
+    private $id;
+
     public function __construct(Client $client)
     {
         $this->client = $client;
@@ -233,6 +235,13 @@ class QueryBuilder
         return $this;
     }
 
+    public function id($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function count()
     {
         return $this->from(0)->size(0)->search()['hits']['total'];
@@ -260,6 +269,9 @@ class QueryBuilder
         if (count($this->sort) > 0) {
             $params['body']['sort'] = $this->sort;
         }
+        if (!is_null($this->id)) {
+            $params['id'] = $this->id;
+        }
 
         return $params;
     }
@@ -267,5 +279,10 @@ class QueryBuilder
     public function search()
     {
         return $this->client->search($this->build());
+    }
+
+    public function get()
+    {
+        return $this->client->get($this->build());
     }
 }
