@@ -25,6 +25,10 @@ class IndexBuilder
 
     private $fields = [];
 
+    private $settings = [];
+
+    private $mappings = [];
+
     public function __construct(Client $client)
     {
         $this->client = $client;
@@ -65,6 +69,34 @@ class IndexBuilder
         return $this;
     }
 
+    public function settings(array $settings)
+    {
+        $this->settings = array_merge($this->settings, $settings);
+
+        return $this;
+    }
+
+    public function addSetting($name, $value)
+    {
+        $this->settings[$name] = $value;
+
+        return $this;
+    }
+
+    public function mappings(array $mappings)
+    {
+        $this->mappings = array_merge($this->mappings, $mappings);
+
+        return $this;
+    }
+
+    public function mapping($name, $value)
+    {
+        $this->mappings[$name] = $value;
+
+        return $this;
+    }
+
     private function build()
     {
         $params = [
@@ -79,6 +111,12 @@ class IndexBuilder
         }
         if (count($this->fields) > 0) {
             $params['body'] = $this->fields;
+        }
+        if (count($this->settings) > 0) {
+            $params['body']['settings'] = $this->settings;
+        }
+        if (count($this->mappings) > 0) {
+            $params['body']['mappings'] = $this->mappings;
         }
 
         return $params;
