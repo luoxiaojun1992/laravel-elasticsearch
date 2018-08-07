@@ -134,11 +134,11 @@ class QueryBuilder
         ]);
     }
 
-    public function filterGeoDistance($distance, $location)
+    public function filterGeoDistance($field, $distance, $location)
     {
         return $this->filterByRule('geo_distance', [
             'distance' => $distance,
-            'pin.location' => $location
+            $field => $location
         ]);
     }
 
