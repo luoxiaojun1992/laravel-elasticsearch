@@ -1,8 +1,6 @@
 <?php
 
-namespace Lxj\Laravel\Elasticsearch;
-
-use Elasticsearch\Client;
+namespace Lxj\Laravel\Elasticsearch\Builder;
 
 /**
  * Class QueryBuilder
@@ -13,10 +11,8 @@ use Elasticsearch\Client;
  *
  * @package Lxj\Laravel\Elasticsearch
  */
-class QueryBuilder
+class QueryBuilder extends AbstractBuilder
 {
-    private $client;
-
     private $index;
 
     private $type;
@@ -32,11 +28,6 @@ class QueryBuilder
     private $query = [];
 
     private $id;
-
-    public function __construct(Client $client)
-    {
-        $this->client = $client;
-    }
 
     public function index($index)
     {

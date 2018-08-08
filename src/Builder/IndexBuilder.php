@@ -1,8 +1,6 @@
 <?php
 
-namespace Lxj\Laravel\Elasticsearch;
-
-use Elasticsearch\Client;
+namespace Lxj\Laravel\Elasticsearch\Builder;
 
 /**
  * Class IndexBuilder
@@ -13,10 +11,8 @@ use Elasticsearch\Client;
  *
  * @package Lxj\Laravel\Elasticsearch
  */
-class IndexBuilder
+class IndexBuilder extends AbstractBuilder
 {
-    private $client;
-
     private $index;
 
     private $type;
@@ -28,11 +24,6 @@ class IndexBuilder
     private $settings = [];
 
     private $mappings = [];
-
-    public function __construct(Client $client)
-    {
-        $this->client = $client;
-    }
 
     public function index($index)
     {

@@ -1,6 +1,6 @@
 <?php
 
-use Lxj\Laravel\Elasticsearch\QueryBuilder;
+use Lxj\Laravel\Elasticsearch\Builder\QueryBuilder;
 use Mockery as M;
 
 class QueryBuilderTest extends \PHPUnit\Framework\TestCase
