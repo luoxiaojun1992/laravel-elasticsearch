@@ -127,6 +127,15 @@ class QueryBuilder extends AbstractBuilder
         ]);
     }
 
+    public function where(array $conditions)
+    {
+        foreach ($conditions as $field => $value) {
+            is_array($value) ? $this->filterTerms($field, $value) : $this->filterTerm($field, $value);
+        }
+
+        return $this;
+    }
+
     public function filterGeoDistance($field, $distance, $location)
     {
         return $this->filterByRule('geo_distance', [
