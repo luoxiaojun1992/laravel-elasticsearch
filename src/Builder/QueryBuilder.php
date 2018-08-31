@@ -29,6 +29,8 @@ class QueryBuilder extends AbstractBuilder
 
     private $id;
 
+    private $scroll;
+
     public function index($index)
     {
         $this->index = $index;
@@ -263,6 +265,9 @@ class QueryBuilder extends AbstractBuilder
         if (!is_null($this->id)) {
             $params['id'] = $this->id;
         }
+        if (!is_null($this->scroll)) {
+            $params['scroll'] = $this->scroll;
+        }
 
         return $params;
     }
@@ -275,5 +280,10 @@ class QueryBuilder extends AbstractBuilder
     public function get()
     {
         return $this->client->get($this->build());
+    }
+
+    public function scroll($scroll_id, $scroll)
+    {
+        return $this->client->scroll(compact('scroll_id', 'scroll'));
     }
 }
