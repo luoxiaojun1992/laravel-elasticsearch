@@ -131,7 +131,14 @@ class QueryBuilder extends AbstractBuilder
     {
         return $this->filterByRule('geo_distance', [
             'distance' => $distance,
-            $field => $location
+            $field => $location,
+        ]);
+    }
+
+    public function filterGeoPolygon($field, $points)
+    {
+        return $this->filterByRule('geo_polygon', [
+            $field => ['points' => $points],
         ]);
     }
 
