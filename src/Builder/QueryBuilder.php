@@ -142,6 +142,13 @@ class QueryBuilder extends AbstractBuilder
         ]);
     }
 
+    public function filterGeoBoundingBox($field, $top_left, $bottom_right)
+    {
+        return $this->filterByRule('geo_bounding_box', [
+            $field => ['top_left' => $top_left, 'bottom_right' => $bottom_right],
+        ]);
+    }
+
     public function must()
     {
         $this->query['bool']['must'] = [];
