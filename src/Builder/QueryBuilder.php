@@ -61,7 +61,7 @@ class QueryBuilder extends AbstractBuilder
 
     public function source(array $source)
     {
-        $this->source = array_merge($this->source, $source);
+        $this->source = array_merge($this->source, array_values($source));
 
         return $this;
     }
@@ -123,7 +123,7 @@ class QueryBuilder extends AbstractBuilder
     public function filterTerms($field, $values)
     {
         return $this->filterByRule('terms', [
-            $field => $values
+            $field => array_values($values)
         ]);
     }
 
