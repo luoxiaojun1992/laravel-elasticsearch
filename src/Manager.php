@@ -30,7 +30,7 @@ class Manager
      * @param  $connection_name
      * @return Client|null
      */
-    public function connection($connection_name)
+    public function connection($connection_name = 'default')
     {
         return $this->connections[$connection_name] ?? $this->addConnection($connection_name);
     }
@@ -41,7 +41,7 @@ class Manager
      * @param  $connection_name
      * @return Client|null
      */
-    protected function addConnection($connection_name)
+    protected function addConnection($connection_name = 'default')
     {
         if (isset($this->connections[$connection_name])) {
             return $this->connections[$connection_name];
