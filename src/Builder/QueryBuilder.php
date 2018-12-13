@@ -268,10 +268,11 @@ class QueryBuilder extends AbstractBuilder
         $params = [
             'index' => $this->index,
             'type'  => $this->type,
-            'body'  => [
-                'query' => $this->query,
-            ],
         ];
+
+        if ($this->query) {
+            $params['body']['query'] = $this->query;
+        }
 
         if (!is_null($this->from)) {
             $params['from'] = $this->from;
