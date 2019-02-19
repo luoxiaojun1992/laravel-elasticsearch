@@ -1,6 +1,7 @@
 {
   "name": "luoxiaojun1992/laravel-elasticsearch",
   "description": "Laravel Elasticsearch",
+  "keywords": ["laravel", "elasticsearch"],
   "minimum-stability": "stable",
   "license": "proprietary",
   "authors": [
