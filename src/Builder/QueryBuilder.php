@@ -263,7 +263,7 @@ class QueryBuilder extends AbstractBuilder
         return $this->from(0)->size(0)->search()['hits']['total'];
     }
 
-    private function build()
+    public function build()
     {
         $params = [
             'index' => $this->index,

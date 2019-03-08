@@ -4,6 +4,7 @@ namespace Lxj\Laravel\Elasticsearch;
 
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
+use Monolog\Logger;
 
 /**
  * Class Manager
@@ -49,7 +50,21 @@ class Manager
 
         $connections_config = $this->config['connections'];
         if (isset($connections_config[$connection_name])) {
-            return $this->connections[$connection_name] = ClientBuilder::fromConfig($connections_config[$connection_name]);
+            $connection_config = $connections_config[$connection_name];
+            if (isset($connection_config['logLevel'])) {
+                $logLevel = $connection_config['logLevel'];
+                unset($connection_config['logLevel']);
+            } else {
+                $logLevel = Logger::WARNING;
+            }
+            if (isset($connection_config['logPath'])) {
+                if (is_writable($connection_config['logPath'])) {
+                    $config['logger'] = ClientBuilder::defaultLogger($connection_config['logPath'], $logLevel);
+                }
+                unset($connection_config['logPath']);
+            }
+
+            return $this->connections[$connection_name] = ClientBuilder::fromConfig($connection_config);
         }
 
         return null;

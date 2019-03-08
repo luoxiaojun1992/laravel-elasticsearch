@@ -88,7 +88,7 @@ class IndexBuilder extends AbstractBuilder
         return $this;
     }
 
-    private function build()
+    public function build()
     {
         $params = [
             'index' => $this->index,
